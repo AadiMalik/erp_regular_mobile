@@ -1,4 +1,3 @@
-import '../config/env.dart';
 import '../models/cart_item.dart';
 import 'api_client.dart';
 
@@ -75,7 +74,7 @@ class CartService {
   static Future<ApiResult<CartData>> fetchCart({String? branchId}) async {
     try {
       final res = await ApiClient.instance.dio.get(
-        '/mobile/cart/${Env.businessId}',
+        '/mobile/cart',
         queryParameters: {if (branchId != null) 'branch_id': branchId},
       );
       return ApiResult.fromResponse(res, (d) => CartData.fromJson(d));
@@ -91,7 +90,7 @@ class CartService {
     String? branchId,
   }) async {
     try {
-      final res = await ApiClient.instance.dio.post('/mobile/cart/${Env.businessId}', data: {
+      final res = await ApiClient.instance.dio.post('/mobile/cart', data: {
         'product_id': productId,
         'product_variation_id': productVariationId,
         'quantity': quantity,
@@ -105,7 +104,7 @@ class CartService {
 
   static Future<ApiResult<dynamic>> updateCartItem(String cartItemId, num quantity, {String? branchId}) async {
     try {
-      final res = await ApiClient.instance.dio.put('/mobile/cart/${Env.businessId}/items/$cartItemId', data: {
+      final res = await ApiClient.instance.dio.put('/mobile/cart/items/$cartItemId', data: {
         'quantity': quantity,
         if (branchId != null) 'branch_id': branchId,
       });
@@ -117,7 +116,7 @@ class CartService {
 
   static Future<ApiResult<dynamic>> removeCartItem(String cartItemId) async {
     try {
-      final res = await ApiClient.instance.dio.delete('/mobile/cart/${Env.businessId}/items/$cartItemId');
+      final res = await ApiClient.instance.dio.delete('/mobile/cart/items/$cartItemId');
       return ApiResult.fromResponse(res, (d) => d);
     } catch (e) {
       return ApiResult.failure(e);

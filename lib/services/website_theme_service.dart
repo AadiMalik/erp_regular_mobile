@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../config/env.dart';
 import '../theme/theme_tokens.dart';
 import 'api_client.dart';
 
 /// Fetches the admin's ERP "Website Theme" choice: which of the 6 presets
 /// is active, plus optional color overrides. Mirrors
-/// services/websiteTheme.js — any failure (down API, unknown business,
+/// services/websiteTheme.js — any failure (down API,
 /// malformed response) must fall back to theme1 untouched (CLAUDE.md #12/13).
 class WebsiteThemeService {
   static Future<AppThemeData> fetchActiveTheme() async {
     final fallback = kThemes[kDefaultThemeKey]!;
     try {
-      final res = await ApiClient.instance.dio.get('/mobile/website-theme/${Env.businessId}');
+      final res = await ApiClient.instance.dio.get('/mobile/website-theme');
       final body = res.data;
       if (body?['Success'] != true || body?['Data']?['colors'] == null) return fallback;
 

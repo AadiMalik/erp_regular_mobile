@@ -1,8 +1,7 @@
-import '../config/env.dart';
 import 'api_client.dart';
 
-/// Customer's Loyalty Points balance for this business.
-/// enabled=false means the program isn't active for this business —
+/// Customer's Loyalty Points balance.
+/// enabled=false means the program isn't active —
 /// available/reserved/redemptionValue are null and the UI must hide loyalty
 /// elements entirely rather than show empty/zero balances.
 class LoyaltyBalance {
@@ -24,7 +23,7 @@ class LoyaltyBalance {
 class LoyaltyService {
   static Future<ApiResult<LoyaltyBalance>> fetchBalance() async {
     try {
-      final res = await ApiClient.instance.dio.get('/mobile/loyalty/${Env.businessId}');
+      final res = await ApiClient.instance.dio.get('/mobile/loyalty');
       final body = res.data;
       if (body?['Success'] != true || body?['Data'] == null) {
         return ApiResult(success: false, message: body?['Message'] ?? 'Could not load loyalty points.');

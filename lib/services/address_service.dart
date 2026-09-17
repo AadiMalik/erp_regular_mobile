@@ -1,4 +1,3 @@
-import '../config/env.dart';
 import 'api_client.dart';
 
 /// Address book, part of the profile domain (ProfileController::storeAddress
@@ -18,7 +17,7 @@ class AddressService {
     bool isDefault = false,
   }) async {
     try {
-      final res = await ApiClient.instance.dio.post('/mobile/profile/${Env.businessId}/addresses', data: {
+      final res = await ApiClient.instance.dio.post('/mobile/profile/addresses', data: {
         if (id != null) 'id': id,
         'label': label,
         'fullName': fullName,
@@ -39,7 +38,7 @@ class AddressService {
 
   static Future<ApiResult<dynamic>> deleteAddress(String addressId) async {
     try {
-      final res = await ApiClient.instance.dio.delete('/mobile/profile/${Env.businessId}/addresses/$addressId');
+      final res = await ApiClient.instance.dio.delete('/mobile/profile/addresses/$addressId');
       return ApiResult.fromResponse(res, (d) => d);
     } catch (e) {
       return ApiResult.failure(e);

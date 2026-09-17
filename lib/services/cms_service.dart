@@ -1,4 +1,3 @@
-import '../config/env.dart';
 import 'api_client.dart';
 
 /// Generic CMS content block (About Us, Contact Us intro, ...) — mirrors
@@ -18,7 +17,7 @@ class CmsSection {
 class CmsService {
   static Future<CmsSection?> fetchSection(String type) async {
     try {
-      final res = await ApiClient.instance.dio.get('/mobile/sections/${Env.businessId}/$type');
+      final res = await ApiClient.instance.dio.get('/mobile/sections/$type');
       final body = res.data;
       if (body?['Success'] != true || body?['Data'] == null) return null;
       return CmsSection.fromJson(body['Data']);
@@ -35,7 +34,7 @@ class CmsService {
     required String message,
   }) async {
     try {
-      final res = await ApiClient.instance.dio.post('/mobile/contact/${Env.businessId}', data: {
+      final res = await ApiClient.instance.dio.post('/mobile/contact', data: {
         'name': name,
         'email': email,
         'phone': phone,

@@ -1,4 +1,4 @@
-/// Flat shape returned by /mobile/products/{business} listing/sections and
+/// Flat shape returned by /mobile/products listing/sections and
 /// detail endpoints (ProductService::mapProductSummary /
 /// getWebsiteDetail on the ERP) — same shape everywhere, listing vs detail
 /// only adds a few extra fields.

@@ -5,7 +5,7 @@ import '../config/env.dart';
 import 'token_storage.dart';
 
 /// Shared HTTP client for every service, mirrors the Vue site's
-/// services/http.js: same base URL/business, attaches the customer's bearer
+/// services/http.js: same base URL, attaches the customer's bearer
 /// token on every request, clears it on a 401 and notifies listeners so
 /// AuthProvider can drop in-memory session state and route to login.
 class ApiClient {

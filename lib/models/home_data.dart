@@ -2,7 +2,7 @@ import 'category.dart';
 import 'product.dart';
 
 /// A CMS "section" row (hero / promo_banner / discount_banner) — shape
-/// mirrors WebsiteSectionService::getActivePublicByBusiness on the ERP.
+/// mirrors WebsiteSectionService public section fetch on the ERP.
 class HomeSection {
   final String? tagline, taglineIcon, heading, headingIcon, description, image, imageMobile;
   final String? buttonText, buttonLink, secondaryButtonText, secondaryButtonLink;
@@ -78,7 +78,7 @@ class ProductGroup {
   bool get shouldShow => enabled && products.isNotEmpty;
 }
 
-/// One-call aggregated homepage payload from GET /mobile/website-home/{business_id}
+/// One-call aggregated homepage payload from GET /mobile/website-home
 /// (WebsiteHomeService::build on the ERP) — mirrors the site's own single
 /// bootstrap fetch instead of stitching several separate calls together.
 class HomeData {

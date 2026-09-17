@@ -1,4 +1,3 @@
-import '../config/env.dart';
 import '../models/product.dart';
 import 'api_client.dart';
 
@@ -25,7 +24,7 @@ class ProductsService {
 
   static Future<ApiResult<ProductsPage>> fetchProducts({Map<String, dynamic>? params}) async {
     try {
-      final res = await ApiClient.instance.dio.get('/mobile/products/${Env.businessId}', queryParameters: params);
+      final res = await ApiClient.instance.dio.get('/mobile/products', queryParameters: params);
       final body = res.data;
       if (body?['Success'] != true || body?['Data'] == null) {
         return ApiResult(success: false, message: body?['Message'] ?? 'Could not load products.', data: const ProductsPage(items: []));
@@ -52,7 +51,7 @@ class ProductsService {
   static Future<ApiResult<Product>> fetchProductBySlug(String slug, {String? branchId}) async {
     try {
       final res = await ApiClient.instance.dio.get(
-        '/mobile/products/${Env.businessId}/$slug',
+        '/mobile/products/$slug',
         queryParameters: branchId != null ? {'branch_id': branchId} : null,
       );
       final body = res.data;
@@ -73,7 +72,7 @@ class ProductsService {
     if (branchId == null || branchId.isEmpty) return const [];
     try {
       final res = await ApiClient.instance.dio.get(
-        '/mobile/products/${Env.businessId}/stock/$variationId',
+        '/mobile/products/stock/$variationId',
         queryParameters: {'branch_id': branchId},
       );
       final body = res.data;
@@ -90,7 +89,7 @@ class ProductsService {
   /// action itself if it fails (offline, expired token, etc.).
   static Future<void> recordShare(String productId, String platform) async {
     try {
-      await ApiClient.instance.dio.post('/mobile/products/${Env.businessId}/$productId/share', data: {'platform': platform});
+      await ApiClient.instance.dio.post('/mobile/products/$productId/share', data: {'platform': platform});
     } catch (_) {
       // best-effort only
     }

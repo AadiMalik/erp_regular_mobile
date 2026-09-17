@@ -5,9 +5,9 @@ A new Flutter project.
 ## Google/Facebook Login + CAPTCHA setup
 
 Social login and CAPTCHA only appear on the Login/Signup screens once
-enabled for this app's business in the ERP (Settings > Social Login &
-Security) — nothing to configure here for that part, it's fetched at
-runtime from `GET /mobile/website-settings/{business_id}`.
+enabled in the ERP (Settings > Social Login & Security) — nothing to
+configure here for that part, it's fetched at runtime from
+`GET /mobile/website-settings`.
 
 **Google Sign-In** needs no build-time secret — its client_id comes from the
 ERP at runtime. You only need to register this app's SHA-1 signing
@@ -15,9 +15,7 @@ fingerprint (Android) / bundle ID (iOS) as an Android/iOS OAuth client under
 that same Google Cloud project, in Google Cloud Console > Credentials.
 
 **Facebook Login** is different: the native SDK reads its App ID at app
-startup, before any business_id is known, so it must be baked into this
-build (this app build is tied to one business's Facebook App, same as it's
-already tied to one `BUSINESS_ID` in `.env`). Before shipping a build with
+startup, so it must be baked into this build. Before shipping a build with
 Facebook Login enabled, get the App ID + Client Token from
 developers.facebook.com > your app > Settings > Basic, then replace:
 - `android/app/src/main/res/values/strings.xml` — `facebook_app_id`,
@@ -25,13 +23,13 @@ developers.facebook.com > your app > Settings > Basic, then replace:
   `facebook_client_token`
 - `ios/Runner/Info.plist` — `FacebookAppID`, `FacebookClientToken`, and the
   `fbREPLACE_WITH_FACEBOOK_APP_ID` URL scheme entry. Also replace
-  `REPLACE_WITH_REVERSED_GOOGLE_CLIENT_ID` there with this business's
-  Google OAuth client ID reversed (e.g. `1234-abc.apps.googleusercontent.com`
+  `REPLACE_WITH_REVERSED_GOOGLE_CLIENT_ID` there with the Google OAuth
+  client ID reversed (e.g. `1234-abc.apps.googleusercontent.com`
   → `com.googleusercontent.apps.1234-abc`) — iOS's Google Sign-In redirect
   needs this URL scheme registered at build time too.
 
 CAPTCHA (reCAPTCHA v2) needs no native setup — it's shown in an in-app
-WebView using the business's public site key from the same settings call.
+WebView using the public site key from the same settings call.
 
 ## Getting Started
 

@@ -4,8 +4,8 @@ import 'package:provider/provider.dart';
 import '../providers/settings_provider.dart';
 import '../services/social_auth_service.dart';
 
-/// Google/Facebook buttons - shown only for the providers this business has
-/// enabled (Settings > Social Login & Security). Calls [onToken] with the
+/// Google/Facebook buttons - shown only for the providers enabled in
+/// Settings > Social Login & Security. Calls [onToken] with the
 /// provider name + token on success, [onError] on failure/cancel.
 class SocialLoginButtons extends StatefulWidget {
   final void Function(String provider, String token) onToken;

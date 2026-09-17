@@ -1,10 +1,9 @@
 <resources>
     <string name="app_name">smart_mart_mobile</string>
     <!-- Facebook Login (flutter_facebook_auth) reads these at native app
-         startup, before any business_id is known - so unlike Google Sign-In
-         (whose client_id comes from the ERP at runtime), this app build is
-         tied to ONE business's Facebook App. Get these from
-         developers.facebook.com > your app > Settings > Basic, then rebuild. -->
+         startup - unlike Google Sign-In (whose client_id comes from the ERP
+         at runtime), Facebook App ID must be baked in at build time. Get these
+         from developers.facebook.com > your app > Settings > Basic, then rebuild. -->
     <string name="facebook_app_id">REPLACE_WITH_FACEBOOK_APP_ID</string>
     <string name="fb_login_protocol_scheme">fbREPLACE_WITH_FACEBOOK_APP_ID</string>
     <string name="facebook_client_token">REPLACE_WITH_FACEBOOK_CLIENT_TOKEN</string>

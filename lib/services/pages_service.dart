@@ -1,4 +1,3 @@
-import '../config/env.dart';
 import 'api_client.dart';
 
 /// Static CMS pages (Terms & Conditions, Privacy Policy, Return Policy,
@@ -12,7 +11,7 @@ class CmsPage {
 class PagesService {
   static Future<CmsPage?> fetchPage(String slug) async {
     try {
-      final res = await ApiClient.instance.dio.get('/mobile/pages/${Env.businessId}/$slug');
+      final res = await ApiClient.instance.dio.get('/mobile/pages/$slug');
       final body = res.data;
       if (body?['Success'] != true || body?['Data']?['content'] == null) return null;
       final data = body['Data'];

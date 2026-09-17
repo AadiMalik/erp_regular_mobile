@@ -1,4 +1,3 @@
-import '../config/env.dart';
 import 'api_client.dart';
 
 class BankDetails {
@@ -18,9 +17,9 @@ class BankDetails {
   bool get hasDetails => [bankName, accountTitle, accountNumber, iban].any((v) => v != null && v.isNotEmpty);
 }
 
-/// Per-business Google/Facebook Login + CAPTCHA - off/absent until the
-/// business enables and configures each in Settings > Social Login &
-/// Security. Public keys only, never secrets (App\Models\LoginSecuritySetting).
+/// Google/Facebook Login + CAPTCHA - off/absent until enabled and
+/// configured in Settings > Social Login & Security. Public keys only,
+/// never secrets (App\Models\LoginSecuritySetting).
 class AuthSettings {
   final bool googleEnabled;
   final String? googleClientId;
@@ -100,7 +99,7 @@ class WebsiteSettings {
 class WebsiteSettingsService {
   static Future<WebsiteSettings> fetch() async {
     try {
-      final res = await ApiClient.instance.dio.get('/mobile/website-settings/${Env.businessId}');
+      final res = await ApiClient.instance.dio.get('/mobile/website-settings');
       final body = res.data;
       if (body?['Success'] != true || body?['Data']?['business'] == null) return WebsiteSettings.fallback;
       return WebsiteSettings.fromJson(body['Data']);

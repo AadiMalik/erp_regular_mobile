@@ -1,13 +1,11 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-/// Same ERP business this app talks to, mirrors the Vue site's .env
-/// (VITE_API_BASE_URL / VITE_BUSINESS_ID). Loaded from .env at startup
-/// (see main.dart) instead of being compiled in, so the business/API this
-/// build targets can change without touching code — set by the
-/// deployment, never by end users.
+/// API and storefront URLs for this ERP installation. Loaded from .env at
+/// startup (see main.dart) instead of being compiled in, so the API this
+/// build targets can change without touching code — set by the deployment,
+/// never by end users.
 class Env {
   static String get apiBaseUrl => dotenv.env['API_BASE_URL']!;
-  static String get businessId => dotenv.env['BUSINESS_ID']!;
 
   /// Public storefront domain (the Vue site), distinct from [apiBaseUrl]
   /// which points at the ERP API host - used to build shareable product

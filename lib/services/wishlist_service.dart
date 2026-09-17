@@ -1,11 +1,10 @@
-import '../config/env.dart';
 import '../models/wishlist_item.dart';
 import 'api_client.dart';
 
 class WishlistService {
   static Future<ApiResult<Map<String, dynamic>>> fetchWishlist() async {
     try {
-      final res = await ApiClient.instance.dio.get('/mobile/wishlist/${Env.businessId}');
+      final res = await ApiClient.instance.dio.get('/mobile/wishlist');
       return ApiResult.fromResponse(res, (d) => d as Map<String, dynamic>);
     } catch (e) {
       return ApiResult.failure(e);
@@ -30,7 +29,7 @@ class WishlistService {
 
   static Future<ApiResult<dynamic>> toggleWishlist({required String productId, String? productVariationId}) async {
     try {
-      final res = await ApiClient.instance.dio.post('/mobile/wishlist/${Env.businessId}/toggle', data: {
+      final res = await ApiClient.instance.dio.post('/mobile/wishlist/toggle', data: {
         'product_id': productId,
         if (productVariationId != null) 'product_variation_id': productVariationId,
       });
